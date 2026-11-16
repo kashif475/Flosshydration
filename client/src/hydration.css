@@ -120,11 +120,26 @@
     transform: translateY(-3px);
   }
 
+  /* GoHighLevel booking widget. Height is a fallback only: form_embed.js
+     (loaded in index.html) resizes the iframe to the widget's real height. */
+  .hydration-calendar-shell {
+    overflow: hidden;
+    border: 1px solid rgba(10, 79, 120, .1);
+    border-radius: 2px 42px 2px 42px;
+    background: white;
+    box-shadow: 0 25px 70px rgba(10, 79, 120, .09);
+  }
+
   .hydration-calendar {
     display: block;
     width: 100%;
-    min-height: 720px;
+    height: 960px;
     border: 0;
+    overflow: hidden;
+  }
+
+  @media (max-width: 640px) {
+    .hydration-calendar { height: 1180px; }
   }
 
   .hydration-mobile-card {
@@ -169,6 +184,27 @@
     background: #F3F8FA;
     padding: 1.5rem;
     box-shadow: 0 25px 70px rgba(10, 79, 120, .09);
+  }
+
+  /* GoHighLevel form embed. Height is a fallback only: form_embed.js resizes
+     the iframe to the form's real height once it loads. */
+  .hydration-form-shell {
+    overflow: hidden;
+    border: 1px solid rgba(10, 79, 120, .1);
+    border-radius: 2px 42px 2px 42px;
+    background: white;
+    box-shadow: 0 25px 70px rgba(10, 79, 120, .09);
+  }
+
+  .hydration-ghl-form {
+    display: block;
+    width: 100%;
+    height: 1250px;
+    border: 0;
+  }
+
+  @media (max-width: 640px) {
+    .hydration-ghl-form { height: 1500px; }
   }
 
   .hydration-field { display: flex; flex-direction: column; gap: .6rem; }

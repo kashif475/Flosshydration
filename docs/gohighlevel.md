@@ -29,7 +29,21 @@ Embed URL patterns:
 
 ## Forms
 
+Forms are embedded as iframes (`client/src/components/GhlFormEmbed.tsx`), so submissions go straight to GHL and never pass through Netlify. The API can list forms and read submissions but cannot create or edit forms.
+
 | Form | ID | Used on the site |
 | --- | --- | --- |
-| Hydration: Individual inquiry | _to create_ | Contact section, "Individual appointment" tab |
-| Hydration: Business / mobile inquiry | _to create_ | Contact section, "Business / mobile inquiry" tab |
+| IV Hydration Event Form | `MV1gvxvQLIRKYui1fh7t` | Yes, contact section (`#contact`). Built for the July USPC event; needs a new banner, an individual vs. business choice and real consent wording |
+| Testimonial Submission | `c8LmFv1EYmguCGXLlEGm` | No |
+| Anaheim Event Form | `YQhlFLOpsyheEcN70AXS` | No |
+| Anaheim Event Form | `TwuS6TE0OuD2QbdpjgtL` | No |
+| Form 0 | `Dmxn8YnLpceNbFJcmFPV` | No (blank) |
+
+Form embed URL: `https://api.leadconnectorhq.com/widget/form/<formId>`
+
+IV Hydration Event Form fields (checked 2026-11-17): first name, last name, phone (required), date of birth, email (required), gender, IV bag (required: Electrolyte Rehydration $130, Myers Cocktail $220, Sports Recovery $240, Beautify $240, Hangover $240, Immune Boost $270, Flos+ $290), booster injection (required, multi: No, Vitamin B12 $45, Glutathione $45, Toradol $45, NAD+ $80), health concerns (free text), two SMS consent checkboxes (text still has "[BUSINESS NAME]" placeholders).
+
+## Account
+
+- Location ID: `hPqWvWwFMOH0laKe4Aku` (Flos, Scotts Valley, America/Los_Angeles)
+- Existing Hydration workflow: "Appointment Confirmation + Reminder - Flos Hydration" (published). Check what it sends before adding reminders, to avoid duplicates.

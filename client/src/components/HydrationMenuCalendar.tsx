@@ -1,4 +1,4 @@
-import { ArrowRight, CalendarDays, Check, Sparkles } from "lucide-react";
+import { ArrowRight, Check, Sparkles } from "lucide-react";
 
 const drips = [
   {
@@ -100,8 +100,7 @@ export default function HydrationMenuCalendar({ onAppointmentRequest }: Hydratio
             </div>
           </div>
 
-          <div className="overflow-hidden rounded-[2px_42px_2px_42px] border border-[#0A4F78]/10 bg-white p-2 shadow-[0_25px_70px_rgba(10,79,120,0.09)] sm:p-4">
-            <div className="flex items-center gap-3 border-b border-[#0A4F78]/9 px-3 pb-4 pt-2"><span className="grid size-9 place-items-center rounded-full bg-[#FFF1E5] text-[#D7791F]"><CalendarDays className="size-4" /></span><div><p className="text-sm font-bold text-[#234E66]">Flos Hydration appointment calendar</p><p className="mt-0.5 text-[10px] leading-4 text-[#718692]">Pick a time that works for you. The care team confirms every booking.</p></div></div>
+          <div className="hydration-calendar-shell">
             <iframe
               className="hydration-calendar"
               id="emK7FK4n7NWNASH8nAEw_flos"
