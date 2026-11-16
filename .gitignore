@@ -158,6 +158,10 @@ vite.config.ts.timestamp-*
 
 # macOS
 .DS_Store
-# temp
-.tmp_unzip/
-.flos_src.zip
+
+# Netlify CLI local state
+.netlify/
+
+# Editor
+.idea/
+*.swp

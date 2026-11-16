@@ -6,11 +6,8 @@
   NODE_VERSION = "22"
   PNPM_VERSION = "10.4.1"
 
-# Single-page app: serve index.html for unknown paths
-[[redirects]]
-  from = "/*"
-  to = "/index.html"
-  status = 200
+# One-page site with no client-side routes: unknown URLs get dist/404.html
+# (from client/public/404.html), which sends visitors back to the home page.
 
 [[headers]]
   for = "/assets/*"
