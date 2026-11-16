@@ -37,3 +37,13 @@ The production files appear in `dist/`.
 | `client/index.html` | Browser title, description, and theme color |
 
 Do not edit files in `dist/` by hand; they are generated every time `pnpm build` runs.
+
+## Deploying to Netlify
+
+`netlify.toml` is included, so Netlify picks up the settings automatically:
+
+- Build command: `pnpm install --frozen-lockfile && pnpm build`
+- Publish directory: `dist`
+- Node 22, pnpm 10.4.1
+
+In Netlify: Add new site → Import from GitHub → pick this repo → Deploy. No extra settings needed.
