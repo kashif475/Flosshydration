@@ -1,4 +1,12 @@
+import { useState } from "react";
 import { ArrowRight, Check, Sparkles } from "lucide-react";
+
+// GoHighLevel van calendars (see docs/gohighlevel.md and docs/ghl-change-log.md).
+// Hours live in GHL: Mon, Wed, Fri, Sat 9 to 12 and 5 to 8 Pacific, one chair.
+const VAN_CALENDARS = [
+  { id: "YHa3D8M3GIKLIM4FnyUt", label: "IV hydration", length: "60 min", title: "Flos Hydration 60-minute IV appointment calendar" },
+  { id: "9W3cXCWGFjacEM6pWEeW", label: "NAD+ infusion", length: "2 hours", title: "Flos Hydration 2-hour NAD+ appointment calendar" },
+] as const;
 
 const drips = [
   {
@@ -46,7 +54,7 @@ const drips = [
   {
     name: "NAD+",
     price: "$700",
-    note: "A wellness-focused NAD+ infusion that may be included in an individualized plan.",
+    note: "A wellness-focused NAD+ infusion that may be included in an individualized plan. Allow about 2 hours.",
     tag: "Advanced",
   },
 ] as const;
@@ -56,6 +64,8 @@ type HydrationMenuCalendarProps = {
 };
 
 export default function HydrationMenuCalendar({ onAppointmentRequest }: HydrationMenuCalendarProps) {
+  const [calendarId, setCalendarId] = useState<string>(VAN_CALENDARS[0].id);
+
   return (
     <>
       <section id="menu" className="scroll-mt-24 bg-white py-24 sm:py-32">
@@ -94,21 +104,40 @@ export default function HydrationMenuCalendar({ onAppointmentRequest }: Hydratio
           <div>
             <div className="mb-5 inline-flex items-center gap-2 text-[10px] font-bold uppercase tracking-[0.2em] text-[#D7791F]"><span className="h-px w-8 bg-[#D7791F]/50" />Scotts Valley appointments</div>
             <h2 className="max-w-xl font-display text-4xl font-medium leading-[1.04] tracking-[-0.035em] text-[#0A4F78] sm:text-6xl">Find a time that works for you.</h2>
-            <p className="mt-6 max-w-lg text-base leading-8 text-[#5C7889]">Individual hydration is booked at the Scotts Valley gym location. Choose an available time in the current Flos Hydration calendar; the team will handle any required screening and confirmation.</p>
+            <p className="mt-6 max-w-lg text-base leading-8 text-[#5C7889]">Individual hydration is booked at the Flos van at the Scotts Valley gym. Choose a 60-minute IV hydration visit or a 2-hour NAD+ infusion, then pick a time; the team will handle any required screening.</p>
             <div className="mt-8 space-y-4 text-sm text-[#486A7D]">
-              {["Individual appointments only", "Scotts Valley gym location", "Appointment and clinical suitability are confirmed by the care team"].map((item) => <div key={item} className="flex items-start gap-3"><span className="mt-0.5 grid size-6 shrink-0 place-items-center rounded-full bg-[#E6F2F7] text-[#0A4F78]"><Check className="size-3.5" /></span><span>{item}</span></div>)}
+              {["Monday, Wednesday, Friday and Saturday, 9 to 12 and 5 to 8", "Flos van at the Scotts Valley gym", "Appointment and clinical suitability are confirmed by the care team"].map((item) => <div key={item} className="flex items-start gap-3"><span className="mt-0.5 grid size-6 shrink-0 place-items-center rounded-full bg-[#E6F2F7] text-[#0A4F78]"><Check className="size-3.5" /></span><span>{item}</span></div>)}
             </div>
           </div>
 
-          <div className="hydration-calendar-shell">
-            <iframe
-              className="hydration-calendar"
-              id="emK7FK4n7NWNASH8nAEw_flos"
-              src="https://api.leadconnectorhq.com/widget/booking/emK7FK4n7NWNASH8nAEw"
-              title="Flos Hydration individual appointment calendar"
-              allow="payment"
-              scrolling="no"
-            />
+          <div>
+            <div className="mb-4 grid grid-cols-2 rounded-xl bg-[#EAF3F7] p-1.5" role="tablist" aria-label="Appointment type">
+              {VAN_CALENDARS.map((cal) => (
+                <button
+                  key={cal.id}
+                  type="button"
+                  role="tab"
+                  aria-selected={calendarId === cal.id}
+                  onClick={() => setCalendarId(cal.id)}
+                  className={`min-h-12 rounded-lg px-3 text-xs font-bold transition-all ${calendarId === cal.id ? "bg-white text-[#0A4F78] shadow-sm" : "text-[#66808E]"}`}
+                >
+                  {cal.label} <span className="font-semibold opacity-70">· {cal.length}</span>
+                </button>
+              ))}
+            </div>
+            {/* Both calendars load up front so form_embed.js can size each one; only the selected one is shown. */}
+            {VAN_CALENDARS.map((cal) => (
+              <div key={cal.id} className="hydration-calendar-shell" hidden={calendarId !== cal.id}>
+                <iframe
+                  className="hydration-calendar"
+                  id={`${cal.id}_flos`}
+                  src={`https://api.leadconnectorhq.com/widget/booking/${cal.id}`}
+                  title={cal.title}
+                  allow="payment"
+                  scrolling="no"
+                />
+              </div>
+            ))}
           </div>
         </div>
       </section>

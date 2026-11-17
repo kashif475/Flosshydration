@@ -39,7 +39,7 @@ Target: staging review ~Dec 4, live ~Dec 11 (SOW: launch in week 4).
   - The confirmation email landed in Gmail's Promotions tab
   - Delete the test contact once the team has seen it
 - [ ] **Pipelines, tags and notification:** pipelines and tags via the API; in the GHL UI, a workflow on form submit that alerts Kaitlyn and sends an auto-reply (no health details in either)
-- [ ] **Booking calendar:** Pacific Time; Mon, Wed, Fri, Sat 9 to 12 and 5 to 8 pm; 60-minute slots, NAD+ 120 minutes; one chair; buffers
+- [x] **Booking calendar:** two new GHL van calendars (60 min and NAD+ 120 min), Mon, Wed, Fri, Sat 9 to 12 and 5 to 8 Pacific, one chair, 15-min buffer; on the website as two tabs (2026-11-17). Kaitlyn to confirm provider and hours
 - [ ] **Stripe through GHL:** pay at booking, then memberships and 3-packs with failed-payment follow-up (test mode first)
 - [ ] **Automations** (check the existing "Appointment Confirmation + Reminder - Flos Hydration" workflow first): booking confirmation, 24-hour and 2-hour reminders (email and SMS), with the intake questionnaire and consent form sent after booking (GHL HIPAA forms)
 - [ ] **Check SMS registration (A2P 10DLC) in GHL early.** Carrier approval can take days.

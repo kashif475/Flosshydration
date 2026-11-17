@@ -37,7 +37,7 @@ Key files:
 | --- | --- |
 | `client/src/pages/HydrationHome.tsx` | Hero, navigation, individual/mobile sections, FAQs, the contact section (`#contact`) with the GHL form embed |
 | `client/src/components/GhlFormEmbed.tsx` | GHL form iframe embed |
-| `client/src/components/HydrationMenuCalendar.tsx` | IV menu and prices, booking calendar embed (`#book`) |
+| `client/src/components/HydrationMenuCalendar.tsx` | IV menu and prices, booking section (`#book`) with tabs for the two GHL van calendars |
 | `client/src/hydration.css` | Section styles, calendar and form styling |
 | `client/src/index.css` | Global colors, type, layout |
 | `client/index.html` | Title, meta, GHL `form_embed.js` script |
@@ -53,7 +53,8 @@ Key files:
 
 ## GoHighLevel integration
 
-- **Use embeds on the site, not the API in browser code.** Calendar embed: `https://api.leadconnectorhq.com/widget/booking/emK7FK4n7NWNASH8nAEw` (Flos Hydration calendar) with `allow="payment"`. `form_embed.js` auto-resizes it.
+- **Use embeds on the site, not the API in browser code.** Booking embeds: `https://api.leadconnectorhq.com/widget/booking/<calendarId>` for "IV Hydration Van (60 min)" `YHa3D8M3GIKLIM4FnyUt` and "NAD+ Van (2 hours)" `9W3cXCWGFjacEM6pWEeW`, with `allow="payment"`. `form_embed.js` auto-resizes them.
+- **Every change in Flos's live GHL account is logged with its rollback in `docs/ghl-change-log.md`.** Add new items only; don't edit or delete their existing setup without Kash's OK.
 - **Inquiry form (decided 2026-11-17):** embed the GHL form directly instead of a custom React form plus Netlify Function, so form data never passes through Netlify (no BAA on the free plan). The contact section currently embeds the existing "IV Hydration Event Form" (`MV1gvxvQLIRKYui1fh7t`). That form was built for the July USPC event and still needs editing in GHL (banner, an individual vs. business choice, consent wording); see `docs/action-items.md`. To swap forms, change `HYDRATION_FORM_ID` in `HydrationHome.tsx`. GHL's API cannot create or edit forms, so form changes happen in the GHL UI.
 - **API use:** only for setup (pipelines, tags) and read-only checks, never from browser code. Token in `.env` locally as `GHL_TOKEN` and `GHL_LOCATION_ID` (`.env.example` shows the names; never prefix them with `VITE_`), and in Netlify env vars if a function ever needs it. Claude uses the token only through the environment variable and never reads `.env`. Workflows (notify Kaitlyn, auto-reply on form submit) are built in the GHL UI.
 - **API token:** GHL sub-account, Settings, Private Integrations (enable under Settings, Labs if hidden). Created 2026-11-17 and verified read-only (location, contacts, pipelines, tags, custom fields, calendars, forms, workflows all return 200). It currently has far more scopes than needed, including payments and read access to Flos Rx patient records; trim to contacts, opportunities, pipelines, custom fields, tags (read/write) and calendars, locations, forms (read). Location ID: `hPqWvWwFMOH0laKe4Aku`.
@@ -68,11 +69,12 @@ Done:
 - Contact section embeds the GHL "IV Hydration Event Form"; the prototype React form is gone
 - GHL Private Integration token created and verified read-only; `.env.example` added (`.env` stays local)
 - End-to-end test on 2026-11-17 (contact "test kashif"): form to GHL works and the customer gets an email, but no team alert fires and the email repeats health answers. Details in `docs/action-items.md`
+- New GHL van calendars (60 min and NAD+ 2 hours, Mon/Wed/Fri/Sat 9-12 and 5-8 Pacific, one chair), two Hydration pipelines and tags created 2026-11-17; the website books through the van calendars. See `docs/ghl-change-log.md`
 
 Next up:
-1. Verify the calendar is no longer cut off at desktop and mobile widths
+1. Waiting on Kaitlyn's answers (provider, hours, alerts, booking messages, intake forms, business form, old calendar, texts). Draft email sent by Kash
 2. Edit the GHL form for the website (or copy it): replace the July event banner, add an individual vs. business choice, fill in the consent wording, then confirm the embed ID
-3. Create the GHL pipelines and tags via the API (GHL forms record UTM source automatically); build the notify-Kaitlyn and auto-reply workflow in the GHL UI
+3. After Kaitlyn replies: business/mobile inquiry form (contact details only) and its alert workflow; copy the existing "Appointment Confirmation + Reminder - Flos Hydration" workflow for the van calendars (2-hour reminder, intake and consent link); intake and consent forms
 4. Items waiting on Flos: final domain, menu prices (NAD+ is $700 on the site vs $520 in Hive's plan; several names differ), offers, legal pages, clinical review. See `docs/action-items.md`
 
 ## Local dev in Docker
