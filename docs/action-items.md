@@ -44,10 +44,14 @@ Target: staging review ~Dec 4, live ~Dec 11 (SOW: launch in week 4).
 - [ ] **Automations** (check the existing "Appointment Confirmation + Reminder - Flos Hydration" workflow first): booking confirmation, 24-hour and 2-hour reminders (email and SMS), with the intake questionnaire and consent form sent after booking (GHL HIPAA forms)
 - [ ] **Check SMS registration (A2P 10DLC) in GHL early.** Carrier approval can take days.
 - [ ] Update the menu, offers, boosters, contact details and location once Flos confirms (section 1)
-- [ ] Add the privacy, terms and disclaimer pages and link them in the footer
-- [ ] Remove the "prices should be reconfirmed" note from the menu before launch
-- [ ] **SEO basics:** favicon, sitemap.xml, robots.txt, canonical URL, social share image and tags
-- [ ] **Analytics:** GA4 plus conversion events on booking and form submit
+- [x] Privacy, terms and clinical disclaimer placeholder pages added and linked in the footer (noindex; wording to come from Flos)
+- [ ] **Launch blocker:** remove the "prices should be reconfirmed" note from the menu once Flos approves the menu and prices
+- [ ] **At launch:** set `SITE_URL` in Netlify to the final domain (canonical, social tags, robots.txt, sitemap.xml follow automatically)
+- [ ] **At launch:** set `VITE_GA_MEASUREMENT_ID` in Netlify once Flos's GA4 property exists, after Flos agrees on analytics and a cookie notice
+- [ ] **At launch:** swap `FORM_IDS.businessInquiry` in `client/src/config/ghl.ts` to the new business form (it currently points at the July event form as a placeholder)
+- [ ] Test booking and the inquiry form on a real iPhone in Safari (GHL embeds stay hidden until the iframe reports it loaded; a browser that blocks it would show an empty box)
+- [x] **SEO basics:** favicon set, sitemap.xml, robots.txt, canonical URL, social share image and tags (2026-11-17)
+- [ ] **Analytics:** GA4 scaffold and click events done (needs the GA4 ID). Booking and form submissions must be tracked from GHL, since its embed does not tell the page
 - [ ] **Tagged links and QR codes:** one each for the front desk, van door, Instagram bio, member email and partners
 - [ ] Test on Chrome, Safari, Firefox, iPhone and Android
 - [ ] Flos staging review (up to 2 revision rounds, 5 business days to approve)

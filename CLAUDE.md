@@ -40,9 +40,21 @@ Key files:
 | `client/src/components/HydrationMenuCalendar.tsx` | IV menu and prices, booking section (`#book`) with tabs for the two GHL van calendars |
 | `client/src/hydration.css` | Section styles, calendar and form styling |
 | `client/src/index.css` | Global colors, type, layout |
-| `client/index.html` | Title, meta, GHL `form_embed.js` script |
+| `client/index.html` | Title, meta, canonical and social tags (`%SITE_URL%`), favicons, GHL `form_embed.js` script |
+| `client/src/config/ghl.ts` | GHL calendar IDs and `FORM_IDS` (swap the business inquiry form ID here) |
+| `client/src/lib/analytics.ts` | GA4 loader and `track()` events |
+| `client/public/*.html` | Legal placeholder pages (privacy, terms, clinical disclaimer), noindex, plus `404.html` |
 | `client/public/` | Images and `404.html` |
 | `netlify.toml` | Build command, publish dir, Node/pnpm versions, headers |
+| `vite.config.ts` | `SITE_URL` (default staging), generates `robots.txt` and `sitemap.xml`, reads `.env` from the repo root |
+
+## Build settings and analytics
+
+- `SITE_URL` (Netlify env var or `.env`): the public URL. Defaults to the staging URL in `vite.config.ts`. Set it to the final domain at launch; canonical, Open Graph, robots.txt and sitemap.xml all follow.
+- `VITE_GA_MEASUREMENT_ID`: GA4 ID (public). Empty means no analytics script loads. Set it in Netlify's environment variables, not in code.
+- Events sent (no names, emails or health details): `booking_cta_click` and `inquiry_cta_click` (with the button location), `booking_type_select` (`iv_60` or `nad_120`), `booking_section_view`, `phone_click`.
+- GHL's `form_embed.js` does not post a "form submitted" or "booking made" message to the page (checked 2026-11-17; it only handles iframeLoaded, fetch-query-params, fetch/set-sticky-contacts and modify-parent-url). Track submissions from GHL itself (thank-you redirect page or GHL's own tracking), not from this site.
+- Legal pages are plain static HTML in `client/public` so `/privacy.html` etc. deep-link directly on Netlify without a router and without touching `404.html`.
 
 ## Hosting and deploy
 
