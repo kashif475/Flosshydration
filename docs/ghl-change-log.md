@@ -22,6 +22,16 @@ Location ID: `hPqWvWwFMOH0laKe4Aku`. Times are Pacific.
 | 5 | 2026-11-17 | Created pipeline "Flos Hydration - Van Appointments" `8ymDZ87Ga5lLbQYJPlHI` (Booked, Intake complete, Visit completed, No-show / cancelled) | API | Same as #4. |
 | 6 | 2026-11-17 | Created tags: `flos-hydration-business-inquiry`, `flos-hydration-van-booked`, `flos-hydration-nad-booked`, `flos-hydration-intake-sent`, `flos-hydration-intake-complete`, `test-contact` | API `POST /locations/{id}/tags` | Settings, Tags, delete each (removes it from any contacts). |
 | 7 | 2026-11-17 | Website booking section switched from the original calendar to the two van calendars (tabs: IV hydration 60 min, NAD+ 2 hours). No GHL change | Code: `HydrationMenuCalendar.tsx`, pushed to `main` (Netlify staging) | Revert that commit and push; the original calendar `emK7FK4n7NWNASH8nAEw` is untouched and works as before. |
+| 8 | 2026-11-19 | Test contact `w97LBxZFGnLv3HmWUYS5` renamed from "test kashif" to "Test Muhammad Kashif" and tagged `test-contact`. This is the only contact used for testing | API `PUT /contacts/{id}`, `POST /contacts/{id}/tags` | Delete the contact when testing is finished (only on Kash's OK). |
+| 9 | 2026-11-19 | Created contact custom fields: Hydration Event Location `2pBruPblAJ2cIRlNPwVd`, Hydration Event Date `cuhp3B5bPssYlaKq6ltx`, Hydration Group Size `3t3Cn9Vi2L2Y6CVEKEci`, Hydration Inquiry Notes `4uHe11JkX2suHw0sV6re` | API `POST /locations/{id}/customFields` | Settings, Custom Fields, delete each (or API `DELETE /locations/{id}/customFields/{fieldId}`). |
+| 10 | 2026-11-19 | Created blank form "Form 6" `ZJkksYo8O4jlXE0UfBgA`, to become "Flos Hydration - Business & Event Inquiry". Not on the website yet | GHL UI: Sites, Forms, Create form | Sites, Forms, row menu, Delete. |
+| 11 | 2026-11-19 | Duplicated workflow as draft "Flos Hydration Van - Confirmation, Reminders, Intake" `52c7dd98-ab6f-43b8-80b2-6d69f3a878b6`. Original `fb779af2-b1a1-47bc-874c-79821508f2dd` unchanged and still published | GHL UI: Workflows, row menu, Duplicate workflow | Automation, Workflows, row menu, Delete workflow. As a draft it sends nothing. |
+| 12 | 2026-11-19 | Edits on the draft copy only: trigger changed to "Customer booked appointment" with one trigger per van calendar (`YHa3D8M3GIKLIM4FnyUt`, `9W3cXCWGFjacEM6pWEeW`); Add Tag now `flos-hydration-van-booked`; second reminder wait changed from 1 hour to 2 hours before | GHL UI: workflow builder | Delete the draft (row 11). |
+| 13 | 2026-11-19 | Test contact `w97LBxZFGnLv3HmWUYS5` email changed to the Flos test account kashif@floshealth.com | API `PUT /contacts/{id}` | Set the previous email back, or delete the test contact when testing ends. |
+| 14 | 2026-11-18 | Kash edited the draft `52c7dd98-ab6f-43b8-80b2-6d69f3a878b6` by hand (now version 6, still draft): alert to Kaitlyn only, van wording, 2-hour reminders, last wait and two "starting" messages removed, Create Opportunity step added. Step contents not yet confirmed by a test run | GHL UI: workflow builder | Delete the draft (row 11). |
+| 15 | 2026-11-18 | Test contact `w97LBxZFGnLv3HmWUYS5` enrolled in the draft `52c7dd98-ab6f-43b8-80b2-6d69f3a878b6` at 23:08 UTC with event time 2026-11-21 10:00 AM Pacific. Approved by Kash. GHL returned 201, trace `7c3725d7-b772-42e7-941e-35dd5cac0762` | GHL MCP `add-contact-to-workflow` | GHL MCP `delete-contact-from-workflow` with the same contact, workflow and event time. |
+| 16 | 2026-11-19 | Kash created form "Flos Hydration - Business & Event Inquiry" `jfqKBPuYcoXjSDDQDull`. Blank "Form 6" `ZJkksYo8O4jlXE0UfBgA` (row 10) is left unused | GHL UI: Sites, Forms | Sites, Forms, row menu, Delete, after moving the website back (row 17). |
+| 17 | 2026-11-19 | Website contact section switched from the July "IV Hydration Event Form" to the new inquiry form, inline embed. No GHL change. Local only until pushed | Code: `client/src/config/ghl.ts`, `GhlFormEmbed.tsx`, `hydration.css` | Set `FORM_IDS.businessInquiry` back to `MV1gvxvQLIRKYui1fh7t` and push. |
 
 ## Things to watch for clashes
 
@@ -30,6 +40,32 @@ Location ID: `hPqWvWwFMOH0laKe4Aku`. Times are Pacific.
 - The booking widget shows times in the visitor's own time zone (Pacific for local customers).
 - The existing "Appointment Confirmation + Reminder - Flos Hydration" workflow only fires for the "Flos Hydration" calendar group, so van-calendar bookings currently get only GHL's built-in calendar notifications, not that workflow. If the van calendars are ever added to that group, it will start sending its messages for them too.
 
+## Still to fix on the draft before it can be published
+
+- Confirmation email (and probably the other copied messages) says "When it is time, we will give you a call at {{contact.phone}}". That is wrong for an in-person van visit.
+- The step named "1hr Reminder Email" still needs renaming, and its text checking, now the wait is 2 hours.
+- Internal Notification sends an SMS to Clint Treadway, Johnny Mengo and Kaitlyn McMurry. Decided 2026-11-19: Kaitlyn only. Kash is making this change by hand in the GHL UI (the API cannot edit workflow steps). Do not also add a calendar SMS notification for the assigned user, or Kaitlyn gets two texts per booking.
+- Intake and consent link is not added (waiting on Kaitlyn's form). Opportunity step for "Flos Hydration - Van Appointments" is not added.
+
+## Test run on 2026-11-18 (22:38 UTC, draft version 4)
+
+- Test contact received the `flos-hydration-van-booked` tag and 4 emails (delivered to kashif@floshealth.com).
+- All 4 SMS failed with Error 21408: the account cannot text +92 numbers. SMS delivery is therefore untested.
+- The run used the unsaved-edit version, so the Internal Notification may have texted Clint Treadway, Johnny Mengo and Kaitlyn McMurry. Not visible through the API; check the workflow's Execution logs.
+
+## Test run on 2026-11-18 (23:08 UTC, draft version 6, API enrollment)
+
+- GHL accepted the enrollment (201), but the test did not show the workflow running. Checked at 23:09 and 23:13 UTC: no new emails or SMS on the test contact and no opportunity created.
+- The `flos-hydration-van-booked` tag was already on the contact from the earlier test, so it proves nothing about this run.
+- The cause is not confirmed. The workflow stayed in draft, and its steps and execution logs cannot be read because the Workflows API is not enabled for this sub-account (403 `WORKFLOW_API_NOT_ENABLED_FOR_LOCATION`).
+- Whether Kaitlyn received an internal alert cannot be checked through the API. The draft's messages and opportunity step remain untested at version 6.
+
+## Van draft: decision on 2026-11-18
+
+- Keep `52c7dd98-ab6f-43b8-80b2-6d69f3a878b6` as a draft and test it later on a call with Divya and the Flos team, with their OK before anyone receives messages.
+- Before publishing: confirm version 6 by a full test run (wording, opportunity step, alert to Kaitlyn only, SMS to a US number), and remove the test enrollment in row 15.
+- Kash saw Divya listed as a contact inside the draft. Check the workflow's Enrollment history to see how she got there and whether she received anything.
+
 ## Test data
 
-- Contact "test kashif" `w97LBxZFGnLv3HmWUYS5` (form test, Nov 16). Leave until Kaitlyn has seen it.
+- Contact "Test Muhammad Kashif" `w97LBxZFGnLv3HmWUYS5` (tag `test-contact`). The only contact to use in tests. Leave until Kaitlyn has seen it.

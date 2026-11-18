@@ -8,8 +8,6 @@ export const VAN_CALENDARS = [
 ] as const;
 
 export const FORM_IDS = {
-  // PLACEHOLDER: this is the old July "IV Hydration Event Form". Replace with the ID of
-  // the new "Flos Hydration - Business & Event Inquiry" form once it exists in GHL
-  // (spec in docs/next-ghl-changes.md).
-  businessInquiry: { id: "MV1gvxvQLIRKYui1fh7t", name: "IV Hydration Event Form" },
+  // Business, group and event inquiries. Contact details only, no health questions.
+  businessInquiry: { id: "jfqKBPuYcoXjSDDQDull", name: "Flos Hydration - Business & Event Inquiry" },
 } as const;

@@ -35,7 +35,9 @@ Forms are embedded as iframes (`client/src/components/GhlFormEmbed.tsx`), so sub
 
 | Form | ID | Used on the site |
 | --- | --- | --- |
-| IV Hydration Event Form | `MV1gvxvQLIRKYui1fh7t` | Yes, contact section (`#contact`). Built for the July USPC event; needs a new banner, an individual vs. business choice and real consent wording |
+| Flos Hydration - Business & Event Inquiry | `jfqKBPuYcoXjSDDQDull` | Yes, contact section (`#contact`), inline embed. Contact and event details only, no health questions |
+| IV Hydration Event Form | `MV1gvxvQLIRKYui1fh7t` | No. Built for the July USPC event; replaced on the website by the inquiry form above |
+| Form 6 | `ZJkksYo8O4jlXE0UfBgA` | No (blank, unused) |
 | Testimonial Submission | `c8LmFv1EYmguCGXLlEGm` | No |
 | Anaheim Event Form | `YQhlFLOpsyheEcN70AXS` | No |
 | Anaheim Event Form | `TwuS6TE0OuD2QbdpjgtL` | No |

@@ -86,7 +86,7 @@ export default function HydrationMenuCalendar({ onAppointmentRequest }: Hydratio
               <h2 className="max-w-xl font-display text-4xl font-medium leading-[1.04] tracking-[-0.035em] text-[#0A4F78] sm:text-6xl">A signature IV menu for your appointment.</h2>
             </div>
             <div>
-              <p className="max-w-2xl text-base leading-8 text-[#56707F]">Explore the current individual hydration offerings, then use the Scotts Valley calendar to request a time. The care team confirms which option is appropriate after the required screening.</p>
+              <p className="max-w-2xl text-base leading-8 text-[#56707F]">Explore the current individual hydration offerings, then use the Scotts Valley calendar to book a time. The care team confirms which option is appropriate after the required screening.</p>
               <button type="button" onClick={() => onAppointmentRequest("menu_intro")} className="hydration-secondary mt-7">Go to appointment calendar <ArrowRight className="size-4" /></button>
             </div>
           </div>

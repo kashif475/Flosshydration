@@ -48,7 +48,8 @@ Target: staging review ~Dec 4, live ~Dec 11 (SOW: launch in week 4).
 - [ ] **Launch blocker:** remove the "prices should be reconfirmed" note from the menu once Flos approves the menu and prices
 - [ ] **At launch:** set `SITE_URL` in Netlify to the final domain (canonical, social tags, robots.txt, sitemap.xml follow automatically)
 - [ ] **At launch:** set `VITE_GA_MEASUREMENT_ID` in Netlify once Flos's GA4 property exists, after Flos agrees on analytics and a cookie notice
-- [ ] **At launch:** swap `FORM_IDS.businessInquiry` in `client/src/config/ghl.ts` to the new business form (it currently points at the July event form as a placeholder)
+- [x] Swap `FORM_IDS.businessInquiry` in `client/src/config/ghl.ts` to the new business form `jfqKBPuYcoXjSDDQDull` (done locally 2026-11-19; reaches staging when pushed)
+- [ ] **Before launch:** build and approve the Business Inquiry Alert, because new inquiries do not alert anyone until it is published
 - [ ] Test booking and the inquiry form on a real iPhone in Safari (GHL embeds stay hidden until the iframe reports it loaded; a browser that blocks it would show an empty box)
 - [x] **SEO basics:** favicon set, sitemap.xml, robots.txt, canonical URL, social share image and tags (2026-11-17)
 - [ ] **Analytics:** GA4 scaffold and click events done (needs the GA4 ID). Booking and form submissions must be tracked from GHL, since its embed does not tell the page

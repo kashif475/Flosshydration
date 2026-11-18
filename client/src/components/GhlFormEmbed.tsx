@@ -25,8 +25,11 @@ export default function GhlFormEmbed({ formId, formName }: GhlFormEmbedProps) {
         data-deactivation-type="neverDeactivate"
         data-deactivation-value=""
         data-form-name={formName}
+        data-height="1320"
         data-layout-iframe-id={`inline-${formId}`}
         data-form-id={formId}
+        data-cookie-consent="true"
+        data-cookie-consent-provider="auto"
       />
     </div>
   );
