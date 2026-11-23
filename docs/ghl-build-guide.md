@@ -54,7 +54,9 @@ Open each step, make the change, and click **Save action**. Replace wording only
 
 ---
 
-## Task 2: Build the business inquiry form (about 30 minutes)
+## Task 2: Build the business inquiry form (done 2026-11-19)
+
+Built as `Flos Hydration - Business & Event Inquiry` (`jfqKBPuYcoXjSDDQDull`) and embedded on the website. "Form 6" is unused. The original steps are kept below for reference.
 
 Open it: **Sites > Forms > Builder**, then click **Form 6**.
 
@@ -103,26 +105,70 @@ Click **Save**. Tell Claude "task 2 done". The form ID is `ZJkksYo8O4jlXE0UfBgA`
 
 ---
 
-## Task 3: Build the inquiry alert (about 15 minutes)
+## Task 3: Build the inquiry alert (about 20 minutes)
+
+This has to be built in the GHL workflow builder, because the Workflows API is not enabled for this sub-account. Everything the workflow points to already exists.
+
+**Before you start:** open the form `Flos Hydration - Business & Event Inquiry` and mark **Organization** as required. The opportunity name uses it, and a required field avoids a blank name.
 
 1. Go to **Automation > Workflows** and click **Create workflow > Start from scratch**.
 2. Rename it at the top: `Flos Hydration - Business Inquiry Alert`.
 3. Click **Add new trigger**, search **Form submitted**, and choose it.
-4. Click **Add filters**, choose **Form is**, and select `Flos Hydration - Business & Event Inquiry`. Click **Save trigger**.
+4. Click **Add filters**, choose **Form is**, and select `Flos Hydration - Business & Event Inquiry` (`jfqKBPuYcoXjSDDQDull`). Click **Save trigger**.
 5. Click **+**, choose **Add Contact Tag**, select `flos-hydration-business-inquiry`, and click **Save action**.
 6. Click **+**, choose **Create Opportunity** (not the older Create/Update action, which GHL is retiring):
    - **Pipeline:** `Flos Hydration - Business & Mobile`
    - **Stage:** `New inquiry`
-   - **Opportunity name:** `{{contact.company_name}} - {{contact.name}}`
+   - **Opportunity name:** `{{contact.company_name}} - event inquiry`
    - **Status:** Open
+   - **Allow duplicate opportunities:** off
    - Click **Save action**.
 7. Click **+**, choose **Internal Notification**:
+   - **Type of notification:** Email
+   - **To user type:** Particular User
+   - **Select users:** Kaitlyn McMurry
+   - **Subject:** `New business/event inquiry: {{contact.company_name}}`
+   - **Message:**
+
+   ```
+   Name: {{contact.name}}
+   Organization: {{contact.company_name}}
+   Phone: {{contact.phone}}
+   Email: {{contact.email}}
+   Event type: {{contact.event_type}}
+   Event location: {{contact.event_location_city_or_venue}}
+   Estimated date: {{contact.date}}
+   Number of guests: {{contact.expected_number_of_guests}}
+   Notes: {{contact.anything_else_we_should_know}}
+   Contact record: https://app.gohighlevel.com/v2/location/hPqWvWwFMOH0laKe4Aku/contacts/detail/{{contact.id}}
+   ```
+
+   - Click **Save action**.
+8. Click **+**, choose **Internal Notification** again for the text alert:
    - **Type of notification:** SMS
    - **To user type:** Particular User
    - **Select users:** Kaitlyn McMurry
-   - **Message:** `New Flos Hydration business inquiry from {{contact.name}}, {{contact.company_name}}. Details are in GoHighLevel.`
+   - **Message:** `New Flos Hydration inquiry from {{contact.name}}, {{contact.company_name}}. Details: https://app.gohighlevel.com/v2/location/hPqWvWwFMOH0laKe4Aku/contacts/detail/{{contact.id}}`
    - Click **Save action**.
-8. Click **Save** at the top right. Leave it on **Draft** until task 4.
+9. Click **+**, choose **Send Email**:
+   - **From name:** `Flos Hydration`
+   - **From email:** `info@floshealth.com`
+   - **Subject:** `We got your inquiry | Flos Hydration`
+   - **Message (plain text, no template, images or banner):**
+
+   ```
+   Hi {{contact.first_name}},
+
+   Thanks for reaching out about bringing Flos Hydration to your group or event. We've received your details and will be in touch within 1 business day.
+
+   If it's urgent, call us at 1.844.967.FLOS.
+
+   The Flos Hydration team
+   ```
+
+   - Click **Save action**.
+10. Open the **Settings** tab and turn **Allow re-entry** on.
+11. Click **Save** at the top right. Leave it on **Draft**.
 
 ---
 
@@ -132,7 +178,7 @@ Tell Kaitlyn first: "You'll get one test text from Flos Hydration about Test Muh
 
 **A. Business inquiry (real test)**
 1. Open **Flos Hydration - Business Inquiry Alert** and switch it to **Publish**. Click **Save**.
-2. Open this link in a private browser window: https://api.leadconnectorhq.com/widget/form/ZJkksYo8O4jlXE0UfBgA
+2. Open this link in a private browser window: https://api.leadconnectorhq.com/widget/form/jfqKBPuYcoXjSDDQDull
 3. Fill it in:
    - **First name:** `Test`
    - **Last name:** `Muhammad Kashif`
@@ -183,3 +229,11 @@ Claude will write the exact field list after task 6 and create the custom fields
 4. Match the on-submit message from the WordPress confirmation.
 5. Save. Do not embed or link it anywhere yet.
 6. Tell Claude "task 7 done" so the form can go to Flos for review. Flos must confirm the questions before it replaces the WordPress form.
+
+---
+
+## Saturday hours: 1st and 3rd Saturday only (done by API, 2026-11-23)
+
+Done through the API on 2026-11-23 (change log row 19). Both van calendars use the availability schedule "Flos Hydration Van (Mon Wed Fri, 1st and 3rd Sat)": Monday, Wednesday and Friday 9 to 12 and 5 to 8 Pacific, plus each 1st and 3rd Saturday through Dec 18, 2027. No other Saturdays are open.
+
+Nothing to do in the UI. If Kaitlyn changes the van hours or takes a day off, ask Claude to update that schedule (or edit it under Kaitlyn's availability in GHL). Before December 2027, add the 2028 Saturdays.

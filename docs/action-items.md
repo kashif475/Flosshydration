@@ -9,11 +9,10 @@ Target: staging review ~Dec 4, live ~Dec 11 (SOW: launch in week 4).
 - [ ] **Tell the team about the form (plain words):** "We've put your GoHighLevel form on the website, so every inquiry goes straight into GoHighLevel, which is covered by your HIPAA add-on. Nothing is stored on the website itself. The form on the site right now is the IV Hydration Event Form from the July event. How would you like it to work for everyday bookings and business inquiries? We can edit that form or make a new one."
 
 - [ ] **Final web address:** hydration.floshealth.com, hydration.flosrx.com or floshydration.com
-- [ ] **Menu and prices:** the site and Hive's plan don't match
-  - NAD+ is **$700** on the site but **$520** (500 mg) in the plan
-  - Names differ: Beauty / Beautify, Immune Boost / Immunity, Flos+ Rejuvenate / Flos+
-  - "Go Go Go" special is in the plan but not on the site. Keep it off?
-  - Booster prices (B12, NAD+ IM, plan says $25 to $35)
+- [x] **Menu and prices:** updated on the site from Kaitlyn's Nov 20 decisions (names, prices, bag upgrade, IV boosters; NAD+ infusion $520, about 2 hours)
+  - [ ] Confirm the NAD+ infusion dose with Kaitlyn (the site shows no dose for the infusion)
+  - [ ] Add the "What's inside" ingredient lists once Kaitlyn's sheet is in `docs/menu-2026-11-20.md` (the toggles stay hidden until then)
+- [x] **Saturday hours in GHL:** both van calendars now open Monday, Wednesday and Friday plus the 1st and 3rd Saturday of each month (schedule `PvT5uLc5NBe0VU7cUPEY`, set 2026-11-23, dates through Dec 2027; change log row 19)
 - [ ] **Launch offers to show on the site:** gym member $20 off, 3-pack at 10% off, bring a friend $15 off (the opening offer ended Oct 31)
 - [ ] **Membership terms:** tiers, price, enrollment fee, minimum term (needed for Stripe recurring payments)
 - [ ] **No-show policy:** plan suggests a $25 fee under 12 hours' notice
@@ -45,7 +44,7 @@ Target: staging review ~Dec 4, live ~Dec 11 (SOW: launch in week 4).
 - [ ] **Check SMS registration (A2P 10DLC) in GHL early.** Carrier approval can take days.
 - [ ] Update the menu, offers, boosters, contact details and location once Flos confirms (section 1)
 - [x] Privacy, terms and clinical disclaimer placeholder pages added and linked in the footer (noindex; wording to come from Flos)
-- [ ] **Launch blocker:** remove the "prices should be reconfirmed" note from the menu once Flos approves the menu and prices
+- [x] Removed the "prices should be reconfirmed" note from the menu (2026-11-20, after Kaitlyn's menu decisions)
 - [ ] **At launch:** set `SITE_URL` in Netlify to the final domain (canonical, social tags, robots.txt, sitemap.xml follow automatically)
 - [ ] **At launch:** set `VITE_GA_MEASUREMENT_ID` in Netlify once Flos's GA4 property exists, after Flos agrees on analytics and a cookie notice
 - [x] Swap `FORM_IDS.businessInquiry` in `client/src/config/ghl.ts` to the new business form `jfqKBPuYcoXjSDDQDull` (done locally 2026-11-19; reaches staging when pushed)

@@ -165,3 +165,6 @@ vite.config.ts.timestamp-*
 # Editor
 .idea/
 *.swp
+
+# Local backups of GHL settings (not for the public repo)
+.ghl-backups/
